@@ -54,7 +54,6 @@ COPY lib lib
 RUN mix compile
 
 # Release
-RUN ls
 # COPY rel rel
 RUN mix release
 
@@ -64,10 +63,10 @@ FROM alpine AS app
 
 RUN apk update && \
     apk add --no-cache \
-    bash
-# imagemagick \
-# libgcc \
-# openssl-dev
+    bash \
+    imagemagick \
+    libgcc \
+    openssl-dev
 
 RUN mkdir /app
 WORKDIR /app
