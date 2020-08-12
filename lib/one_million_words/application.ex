@@ -8,7 +8,7 @@ defmodule OneMillionWords.Application do
   def start(_type, _args) do
     children = [
       # Start the Ecto repository
-      OneMillionWords.Repo,
+      # OneMillionWords.Repo,
       # Start the Telemetry supervisor
       OneMillionWordsWeb.Telemetry,
       # Start the PubSub system
