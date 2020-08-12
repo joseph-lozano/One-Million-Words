@@ -1,5 +1,5 @@
 # Setup build image
-FROM elixir:1.10.3-alpine AS builder
+FROM elixir:1.10.4-alpine AS builder
 
 # Install build dependencies
 RUN apk update && \
@@ -54,7 +54,6 @@ COPY lib lib
 RUN mix compile
 
 # Release
-# COPY rel rel
 RUN mix release
 
 
@@ -73,13 +72,9 @@ WORKDIR /app
 
 COPY --from=builder /build/_build/prod/rel/one_million_words ./
 
-# COPY docker-entrypoint.sh ./
-# RUN chmod +x docker-entrypoint.sh
 
 ARG PORT
-
 EXPOSE ${PORT}
 
-# ENTRYPOINT ["bash", "docker-entrypoint.sh"]
 CMD ["bin/one_million_words", "start"]
 
