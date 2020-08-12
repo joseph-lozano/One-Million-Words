@@ -10,11 +10,14 @@ defmodule OneMillionWordsWeb.PageLive do
   def handle_event("count_words", %{"url" => url}, socket) do
     pid = self()
 
+    if socket.assigns.disabled, do: raise(RuntimeError)
+
     socket =
       socket
       |> assign(:disabled, true)
       |> assign(:page_counts, [])
       |> assign(:error, false)
+      |> assign(:url, url)
       |> assign(:count, 0)
 
     Task.async(fn ->
@@ -38,26 +41,25 @@ defmodule OneMillionWordsWeb.PageLive do
     {:noreply, socket}
   end
 
-
   def handle_info({_ref, x}, socket) when is_integer(x) do
     socket =
       socket
       |> assign(:disabled, false)
+
     {:noreply, socket}
   end
 
   # Sad path
   def handle_info({_ref, x}, socket) when not is_integer(x) do
-    IO.inspect(x, label: "BBBBBBBBBB")
-
     socket =
       socket
-      |> assign(:count, x)
+      |> assign(:count, "Could not read RSS")
       |> assign(:disabled, false)
       |> assign(:error, true)
 
     {:noreply, socket}
   end
+
   def handle_info({_ref, _count}, socket) do
     {:noreply, socket}
   end

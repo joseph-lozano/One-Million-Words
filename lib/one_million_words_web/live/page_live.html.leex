@@ -8,10 +8,12 @@
       <%= button_contents %>
     </button>
   </form>
+  <%= if @url, do: @url %>
 </section>
 
+
 <%= if @error do %>
-<%= @count %>
+<h3>Could not read RSS for <%= @url %></h3>
 <% else %>
 <table>
   <tr>
@@ -24,7 +26,7 @@
   </tr>
   <%= for {url, count } <- @page_counts do %>
   <tr>
-    <td><%= url %></td>
+    <td><a href="<%= url %>"><%= URI.parse(url).path %> </a></td>
     <td><%= count %></td>
   </tr>
   <% end %>
