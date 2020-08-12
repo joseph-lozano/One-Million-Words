@@ -8,7 +8,9 @@
       <%= button_contents %>
     </button>
   </form>
-  <%= if @url, do: @url %>
+  <%= if not @error do  %>
+  <%= @url %>
+  <% end %>
 </section>
 
 
