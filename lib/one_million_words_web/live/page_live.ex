@@ -8,9 +8,35 @@ defmodule OneMillionWordsWeb.PageLive do
 
   @impl true
   def handle_event("count_words", %{"url" => url}, socket) do
-    IO.inspect(url, label: "count words")
-    count = count_words(url)
-    socket = assign(socket, :count, count)
+    pid = self()
+
+    Task.async(fn ->
+      count_words(url)
+    end)
+
+    {:noreply, assign(socket, :disabled, true)}
+  end
+
+  # Happy Path
+  def handle_info({_ref, {:total_count, count}}, socket) do
+    socket
+    |> assign(:count, count)
+    |> assign(:disabled, false)
+
+    {:noreply, socket}
+  end
+
+  # Sad path
+  def handle_info({_ref, x}, socket) do
+    socket = socket
+    |> assign(:count, x)
+    |> assign(:disabled, false)
+
+    {:noreply, socket}
+  end
+
+  # Normal shutdown after task is done
+  def handle_info({:DOWN, _ref, _, _, :normal}, socket) do
     {:noreply, socket}
   end
 
@@ -27,6 +53,6 @@ defmodule OneMillionWordsWeb.PageLive do
   end
 
   defp format_results(x) do
-    IO.inspect x
+    IO.inspect(x)
   end
 end
