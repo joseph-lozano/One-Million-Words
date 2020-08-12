@@ -8,4 +8,23 @@
   </form>
 </section>
 
-<div><%= @count %></div>
+<%= if @error do %>
+<%= @count %>
+<% else %>
+<table>
+  <tr>
+    <th>URL</th>
+    <th>Count</th>
+  </tr>
+  <tr>
+    <td>Total</td>
+    <td><%= @count %></td>
+  </tr>
+  <%= for {url, count } <- @page_counts do %>
+  <tr>
+    <td><%= url %></td>
+    <td><%= count %></td>
+  </tr>
+  <% end %>
+</table>
+<% end %>

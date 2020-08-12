@@ -26,7 +26,7 @@ defmodule OneMillionWords.HTML do
     text(contents)
   end
 
-  def word_count(url) do
+  def word_count(url, from) do
     wc =
       get(url)
       |> text()
@@ -34,6 +34,17 @@ defmodule OneMillionWords.HTML do
       |> Enum.count()
 
     Logger.debug("word count: #{url} -> #{wc}")
-    wc
+
+    maybe_send({url, wc}, from)
+  end
+
+  defp maybe_send(result, nil) do
+    result
+  end
+
+  defp maybe_send(result, pid) when is_pid(pid) do
+    IO.puts("SENDING")
+    send(pid, {:page_count, result})
+    result
   end
 end
