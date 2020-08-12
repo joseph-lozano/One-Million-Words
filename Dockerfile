@@ -76,6 +76,10 @@ COPY --from=builder /build/_build/prod/rel/one_million_words ./
 # COPY docker-entrypoint.sh ./
 # RUN chmod +x docker-entrypoint.sh
 
+ARG PORT
+
+EXPOSE ${PORT}
+
 # ENTRYPOINT ["bash", "docker-entrypoint.sh"]
 CMD ["bin/one_million_words", "start"]
 
