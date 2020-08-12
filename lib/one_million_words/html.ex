@@ -5,10 +5,11 @@ defmodule OneMillionWords.HTML do
 
   @spec get(url :: String.t()) :: list()
   def get(url) do
-    HTTP.get!(url)
-    |> Map.get(:body)
-    |> Floki.parse_document!()
-    |> Floki.find("main")
+    with {:ok, response} <- HTTP.get(url),
+         {:ok, body} <- Map.fetch(response, :body),
+         {:ok, parsed} <- Floki.parse_document(body) do
+      Floki.find(parsed, "main")
+    end
   end
 
   @spec text(list) :: String.t()

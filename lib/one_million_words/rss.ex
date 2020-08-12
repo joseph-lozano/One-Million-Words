@@ -3,13 +3,11 @@ defmodule OneMillionWords.RSS do
   @moduledoc "Fetches RSS"
 
   def get(url) do
-    HTTP.get!(url)
-    |> Map.get(:body)
-    |> FastRSS.parse()
-    |> get_ok()
-    |> Map.get("items")
-    |> Enum.map(&Map.get(&1, "link"))
+    with {:ok, response} <- HTTP.get(url),
+         {:ok, body} <- Map.fetch(response, :body),
+         {:ok, parsed} <- FastRSS.parse(body),
+         {:ok, items} <- Map.fetch(parsed, "items") do
+      {:ok, Enum.map(items, &Map.get(&1, "link"))}
+    end
   end
-
-  defp get_ok({:ok, rss}), do: rss
 end
