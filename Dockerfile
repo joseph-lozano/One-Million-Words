@@ -67,8 +67,6 @@ FROM elixir_builder as app_builder
 RUN mkdir /app
 WORKDIR /app
 
-RUN update-locale LC_ALL=en_US.UTF-8
-
 COPY . .
 
 ARG APP_NAME
