@@ -4,7 +4,10 @@
 
   <form phx-submit="count_words">
     <input type="text" name="url" value="<%= @url %>" placeholder="RSS url" autocomplete="off" />
-    <button type="submit" <%= if @disabled, do: "disabled" %>>Count Words!</button>
+    <% button_contents = if @disabled, do: "Counting...", else: "Count" %>
+    <button type="submit" <%= if @disabled, do: "disabled" %>>
+      <%= button_contents %>
+    </button>
   </form>
 </section>
 
