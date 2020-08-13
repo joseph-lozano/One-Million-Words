@@ -2,7 +2,7 @@
   <h1>One Million Words</h1>
 
   <form phx-submit="count_words">
-    <input type="text" name="url" value="<%= @url %>" placeholder="RSS url" autocomplete="off" />
+    <input type="url" name="url" value="<%= @url %>" placeholder="RSS url" autocomplete="off" />
     <% button_contents = if @disabled, do: "Counting...", else: "Count" %>
     <button type="submit" <%= if @disabled, do: "disabled" %>>
       <%= button_contents %>
