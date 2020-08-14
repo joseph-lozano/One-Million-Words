@@ -13,10 +13,10 @@
   <% end %>
 </section>
 
-
-<%= if @error do %>
+<%= cond do %>
+<% @error -> %> %>
 <h3>Could not read RSS for <%= @url %></h3>
-<% else %>
+<% @count -> %>
 <table>
   <tr>
     <th>URL</th>
@@ -33,4 +33,6 @@
   </tr>
   <% end %>
 </table>
+<% true -> %>
+<p>Enter a RSS url above to begin</p>
 <% end %>
