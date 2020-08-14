@@ -8,8 +8,7 @@ RUN apk update && \
     build-base \
     curl \
     git \
-    libgcc \
-    python3
+    libgcc
 
 # Install rustup
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
@@ -63,7 +62,6 @@ FROM alpine AS app
 RUN apk update && \
     apk add --no-cache \
     bash \
-    imagemagick \
     libgcc \
     openssl-dev
 
@@ -77,4 +75,3 @@ ARG PORT
 EXPOSE ${PORT}
 
 CMD ["bin/one_million_words", "start"]
-
