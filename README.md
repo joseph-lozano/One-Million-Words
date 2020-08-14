@@ -1,20 +1,14 @@
 # OneMillionWords
 
-To start your Phoenix server:
+Count the words in your blog with just your RSS Feed!
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Install Node.js dependencies with `npm install` inside the `assets` directory
-  * Start Phoenix endpoint with `mix phx.server`
+Check out the inspiration [here](https://josephlozano.xyz/posts/2020/one-million-words/)
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+#### Pull Requests or suggestions welcome!
 
-## Learn more
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+TODO:
+* Save counts to a database
+* Search content for a user configurable tag, not just `<main>`
+* Make it prettier
